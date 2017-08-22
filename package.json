@@ -1,0 +1,29 @@
+{
+  "name": "react-markings",
+  "version": "0.0.0",
+  "description": "Markdown in components, components in markdown",
+  "main": "index.js",
+  "repository": "thejameskyle/react-markings",
+  "author": "James Kyle <me@thejameskyle.com>",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.49.1",
+    "jest": "^20.0.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "dependencies": {
+    "commonmark": "^0.27.0",
+    "commonmark-react-renderer": "^4.3.3",
+    "strip-indent": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "^15.6.1"
+  }
+}
