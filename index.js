@@ -6,7 +6,38 @@ var Parser = require('commonmark').Parser;
 var Renderer = require('commonmark-react-renderer');
 var stripIndent = require('strip-indent');
 
-var PLACEHOLDER = 'REACT-MARKINGS-PLACEHOLDER';
+var PLACEHOLDER = 'super-secret-react-markings-placeholder-if-you-are-seeing-this-then-there-is-a-bug-in-react-markings';
+
+function validate(node) {
+  var isValid = true;
+  var walker = node.walker();
+  var event;
+
+  while ((event = walker.next())) {
+    var node = event.node;
+
+    if (!event.entering || !node.literal) {
+      continue;
+    }
+
+    if (node.literal.indexOf(PLACEHOLDER) === -1) {
+      continue;
+    }
+
+    if (
+      node.type === 'text' &&
+      node.parent.type === 'paragraph' &&
+      node.literal === PLACEHOLDER
+    ) {
+      continue;
+    }
+
+    isValid = false;
+    break;
+  }
+
+  return isValid;
+}
 
 /*::
 declare type ReactNode =
@@ -24,6 +55,10 @@ function markings(strings /*: Array<string> */, ...values /*: Array<ReactNode> *
   var parser = new Parser();
   var ast = parser.parse(input);
 
+  if (!validate(ast)) {
+    throw new Error('react-markings cannot interpolate React elements non-block positions');
+  }
+
   var renderer = new Renderer({
     renderers: {
       Paragraph: function(props) {
@@ -36,9 +71,7 @@ function markings(strings /*: Array<string> */, ...values /*: Array<ReactNode> *
     },
   });
 
-  var result = renderer.render(ast);
-
-  return React.createElement('div', {}, result);
+  return React.createElement('div', {}, renderer.render(ast));
 }
 
 module.exports = markings;
