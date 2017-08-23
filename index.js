@@ -8,16 +8,18 @@ var stripIndent = require('strip-indent');
 
 var PLACEHOLDER = 'REACT-MARKINGS-PLACEHOLDER';
 
-/*
-type Value =
-  | null
+/*::
+declare type ReactNode =
   | void
-  | string
+  | null
+  | boolean
   | number
+  | string
   | React.Element<any>
+  | Iterable<ReactNode>;
 */
 
-function markings(strings /*: Array<string> */, ...values /*: Array<Value> */) {
+function markings(strings /*: Array<string> */, ...values /*: Array<ReactNode> */) {
   var input = stripIndent(strings.join(PLACEHOLDER));
   var parser = new Parser();
   var ast = parser.parse(input);
@@ -36,7 +38,7 @@ function markings(strings /*: Array<string> */, ...values /*: Array<Value> */) {
 
   var result = renderer.render(ast);
 
-  return React.createElement('div', null, result);
+  return React.createElement('div', {}, result);
 }
 
 module.exports = markings;

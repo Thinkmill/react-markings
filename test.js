@@ -9,7 +9,7 @@ function MyComponent() {
   return React.createElement('div', null, 'MyComponent');
 }
 
-test('example', () => {
+test('paragraph', () => {
   expect(renderToStaticMarkup(md`
     # Heading
 
