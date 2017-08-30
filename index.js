@@ -4,9 +4,27 @@
 var React = require('react');
 var Parser = require('commonmark').Parser;
 var Renderer = require('commonmark-react-renderer');
-var stripIndent = require('strip-indent');
 
 var PLACEHOLDER = 'super-secret-react-markings-placeholder-if-you-are-seeing-this-then-there-is-a-bug-in-react-markings';
+
+// Source: https://github.com/sindresorhus/strip-indent
+function stripIndent(str) {
+  var match = str.match(/^[ \t]*(?=\S)/gm);
+  if (!match) {
+    return str;
+  }
+
+  var indent = Math.min.apply(Math, match.map(function (x) {
+    return x.length;
+  }));
+
+  if (indent === 0) {
+    return str;
+  }
+
+  const re = new RegExp(`^[ \\t]{${indent}}`, 'gm');
+  return str.replace(re, '');
+}
 
 function validate(node) {
   var isValid = true;
