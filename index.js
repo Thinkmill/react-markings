@@ -83,7 +83,7 @@ function markings(strings /*: Array<string> */, ...values /*: Array<ReactNode> *
         if (props.children.length === 1 && props.children[0] === PLACEHOLDER) {
           return values.shift();
         } else {
-          return React.createElement('p', null, props.children);
+          return React.createElement('p', {}, props.children);
         }
       },
     },
