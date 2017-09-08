@@ -77,11 +77,14 @@ function markings(strings /*: Array<string> */, ...values /*: Array<ReactNode> *
     throw new Error('react-markings cannot interpolate React elements non-block positions');
   }
 
+  var index = 0;
   var renderer = new Renderer({
     renderers: {
       Paragraph: function(props) {
         if (props.children.length === 1 && props.children[0] === PLACEHOLDER) {
-          return values.shift();
+          var value = values[index];
+          index = index + 1 < values.length ? index + 1 : 0;
+          return value;
         } else {
           return React.createElement('p', {}, props.children);
         }
