@@ -3,7 +3,8 @@
 
 const md = require('./');
 const React = require('react');
-const {renderToStaticMarkup} = require('react-dom/server');
+const ReactDOMServer = require('react-dom/server');
+const renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
 
 const element = React.createElement('div', null, 'MyComponent');
 
