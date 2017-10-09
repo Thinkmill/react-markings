@@ -68,7 +68,7 @@ declare type ReactNode =
   | Iterable<ReactNode>;
 */
 
-function markings(strings /*: Array<string> */, /*:: ...values: Array<ReactNode> */) {
+function markings(strings /*: Array<string> */ /*::, ...values: Array<ReactNode> */) {
   var values = Array.prototype.slice.call(arguments, 1);
   var input = stripIndent(strings.join(PLACEHOLDER));
   var parser = new Parser();
