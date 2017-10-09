@@ -1,6 +1,6 @@
 {
   "name": "react-markings",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Markdown in components, components in markdown",
   "main": "index.js",
   "repository": "thejameskyle/react-markings",
