@@ -22,7 +22,7 @@ function stripIndent(str) {
     return str;
   }
 
-  const re = new RegExp('^[ \\t]{' + indent + '}', 'gm');
+  var re = new RegExp('^[ \\t]{' + indent + '}', 'gm');
   return str.replace(re, '');
 }
 
