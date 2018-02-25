@@ -68,7 +68,7 @@ declare type ReactNode =
   | Iterable<ReactNode>;
 */
 
-function withRenderers(renderers, /*: Array<ReactNode> */) {
+function withRenderers(renderers /*: ?{[key: string]: (props: Object) => ReactNode} */) {
   return function markings(strings /*: Array<string> */ /*::, ...values: Array<ReactNode> */) {
     var values = Array.prototype.slice.call(arguments, 1);
     var input = stripIndent(strings.join(PLACEHOLDER));
