@@ -98,7 +98,6 @@ function withRenderers(renderers /*: ?{[key: string]: (props: Object) => ReactNo
   }
 }
 
-module.exports = {
-  md: withRenderers(),
-  withRenderers: withRenderers,
-}
+let md = withRenderers();
+md.withRenderers = withRenderers;
+module.exports = md;

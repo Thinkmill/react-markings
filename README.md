@@ -8,7 +8,7 @@
 
 ```js
 import * as React from 'react';
-import { md } from 'react-markings';
+import md from 'react-markings';
 
 function Example() {
   return (
@@ -35,19 +35,19 @@ export default function ReadMe() {
 - Allows you to pass your own `commonmark-react-renderer` renderers [type-renderer-options](https://github.com/rexxars/commonmark-react-renderer#type-renderer-options) via `withRenderers` higher order function like this:
 ```js
 import * as React from 'react';
-import { withRenderers } from 'react-markings';
+import md from 'react-markings';
 
 function Example() {
   return <div>Example</div>;
 }
 
-const md = withRenderers({
+const mdWithCustomRenderers = md.withRenderers({
   // customize heading with class
   heading: props => React.createElement('h' + props.level, { className: 'my-class'}, props.children),
 });
 
 export default function CustomHeading() {
-  return md`
+  return mdWithCustomRenderers`
     # react-markings
 
     ${<Example/>}

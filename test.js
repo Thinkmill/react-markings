@@ -1,7 +1,7 @@
 // @flow
 'use strict';
 
-const { md, withRenderers } = require('./');
+const md = require('./');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
@@ -60,7 +60,7 @@ test('non-blocks', () => {
 });
 
 test('withRenderers', () => {
-  const mdWithCustomRenderers = withRenderers({
+  const mdWithCustomRenderers = md.withRenderers({
     heading: props => React.createElement('h' + props.level, { className: 'my-class'}, props.children),
   });
 
