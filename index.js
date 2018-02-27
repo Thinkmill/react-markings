@@ -68,32 +68,36 @@ declare type ReactNode =
   | Iterable<ReactNode>;
 */
 
-function markings(strings /*: Array<string> */ /*::, ...values: Array<ReactNode> */) {
-  var values = Array.prototype.slice.call(arguments, 1);
-  var input = stripIndent(strings.join(PLACEHOLDER));
-  var parser = new Parser();
-  var ast = parser.parse(input);
+function withRenderers(renderers /*: ?{[key: string]: (props: Object) => ReactNode} */) {
+  return function markings(strings /*: Array<string> */ /*::, ...values: Array<ReactNode> */) {
+    var values = Array.prototype.slice.call(arguments, 1);
+    var input = stripIndent(strings.join(PLACEHOLDER));
+    var parser = new Parser();
+    var ast = parser.parse(input);
 
-  if (!validate(ast)) {
-    throw new Error('react-markings cannot interpolate React elements non-block positions');
+    if (!validate(ast)) {
+      throw new Error('react-markings cannot interpolate React elements non-block positions');
+    }
+
+    var index = 0;
+    var renderer = new Renderer({
+      renderers: Object.assign({}, renderers, {
+        Paragraph: function(props) {
+          if (props.children.length === 1 && props.children[0] === PLACEHOLDER) {
+            var value = values[index];
+            index = index + 1 < values.length ? index + 1 : 0;
+            return value;
+          } else {
+            return React.createElement('p', {}, props.children);
+          }
+        },
+      })
+    });
+
+    return React.createElement('div', {}, renderer.render(ast));
   }
-
-  var index = 0;
-  var renderer = new Renderer({
-    renderers: {
-      Paragraph: function(props) {
-        if (props.children.length === 1 && props.children[0] === PLACEHOLDER) {
-          var value = values[index];
-          index = index + 1 < values.length ? index + 1 : 0;
-          return value;
-        } else {
-          return React.createElement('p', {}, props.children);
-        }
-      },
-    },
-  });
-
-  return React.createElement('div', {}, renderer.render(ast));
 }
 
-module.exports = markings;
+let md = withRenderers();
+md.withRenderers = withRenderers;
+module.exports = md;

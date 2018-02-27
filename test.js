@@ -58,3 +58,14 @@ test('non-blocks', () => {
     `);
   }).toThrow();
 });
+
+test('withRenderers', () => {
+  const mdWithCustomRenderers = md.withRenderers({
+    heading: props => React.createElement('h' + props.level, { className: 'my-class'}, props.children),
+  });
+
+  expect(renderToStaticMarkup(mdWithCustomRenderers`
+    # Heading
+    ${element}
+  `)).toBe('<div><h1 class="my-class">Heading</h1><div>MyComponent</div></div>');
+});
