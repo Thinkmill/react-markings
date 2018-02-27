@@ -32,25 +32,22 @@ export default function ReadMe() {
   `;
 }
 ```
-- Allows you to pass your own `commonmark-react-renderer` renderers [type-renderer-options](https://github.com/rexxars/commonmark-react-renderer#type-renderer-options) via `withRenderers` higher order function like this:
+
+If you want to customize rendering further, you can use `withRenderers` to pass your
+own [renderers](https://github.com/rexxars/commonmark-react-renderer#type-renderer-options).
+
 ```js
 import * as React from 'react';
-import md from 'react-markings';
+import { withRenderers } from 'react-markings';
 
-function Example() {
-  return <div>Example</div>;
-}
-
-const mdWithCustomRenderers = md.withRenderers({
+let md = withRenderers({
   // customize heading with class
-  heading: props => React.createElement('h' + props.level, { className: 'my-class'}, props.children),
+  heading: props => React.createElement('h' + props.level, { className: 'fancy-heading' }, props.children),
 });
 
 export default function CustomHeading() {
   return mdWithCustomRenderers`
-    # react-markings
-
-    ${<Example/>}
+    # Fancy Heading
   `;
 }
 ```
