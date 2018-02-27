@@ -33,20 +33,22 @@ export default function ReadMe() {
 }
 ```
 
-If you want to customize rendering further, you can use `withRenderers` to pass your
+If you want to customize rendering further, you can use `customize` to pass your
 own [renderers](https://github.com/rexxars/commonmark-react-renderer#type-renderer-options).
 
 ```js
 import * as React from 'react';
-import { withRenderers } from 'react-markings';
+import md from 'react-markings';
 
-let md = withRenderers({
-  // customize heading with class
-  heading: props => React.createElement('h' + props.level, { className: 'fancy-heading' }, props.children),
+let customMd = md.customize({
+  renderers: {
+    // customize heading with class
+    heading: props => React.createElement('h' + props.level, { className: 'fancy-heading' }, props.children),
+  },
 });
 
 export default function CustomHeading() {
-  return mdWithCustomRenderers`
+  return customMd`
     # Fancy Heading
   `;
 }

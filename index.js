@@ -66,9 +66,17 @@ declare type ReactNode =
   | string
   | React.Element<any>
   | Iterable<ReactNode>;
+
+type Options = {
+  renderers?: {
+    [key: string]: (props: Object) => ReactNode
+  }
+};
 */
 
-function withRenderers(renderers /*: ?{[key: string]: (props: Object) => ReactNode} */) {
+function customize(opts /*: Options */) {
+  let renderers = opts.renderers || {};
+
   return function markings(strings /*: Array<string> */ /*::, ...values: Array<ReactNode> */) {
     var values = Array.prototype.slice.call(arguments, 1);
     var input = stripIndent(strings.join(PLACEHOLDER));
@@ -87,6 +95,10 @@ function withRenderers(renderers /*: ?{[key: string]: (props: Object) => ReactNo
             var value = values[index];
             index = index + 1 < values.length ? index + 1 : 0;
             return value;
+          } else if (renderers.Paragraph) {
+            return renderers.Paragraph(props);
+          } else if (renderers.paragraph) {
+            return renderers.paragraph(props);
           } else {
             return React.createElement('p', {}, props.children);
           }
@@ -98,6 +110,6 @@ function withRenderers(renderers /*: ?{[key: string]: (props: Object) => ReactNo
   }
 }
 
-let md = withRenderers();
-md.withRenderers = withRenderers;
+let md = customize({});
+md.customize = customize;
 module.exports = md;

@@ -59,13 +59,19 @@ test('non-blocks', () => {
   }).toThrow();
 });
 
-test('withRenderers', () => {
-  const mdWithCustomRenderers = md.withRenderers({
-    heading: props => React.createElement('h' + props.level, { className: 'my-class'}, props.children),
+test('customize', () => {
+  const customMd = md.customize({
+    renderers: {
+      heading: props => React.createElement('h' + props.level, { className: 'fancy' }, props.children),
+      paragraph: props => React.createElement('p', { className: 'blink' }, props.children)
+    }
   });
 
-  expect(renderToStaticMarkup(mdWithCustomRenderers`
+  expect(renderToStaticMarkup(customMd`
     # Heading
+
     ${element}
-  `)).toBe('<div><h1 class="my-class">Heading</h1><div>MyComponent</div></div>');
+
+    paragraph
+  `)).toBe('<div><h1 class="fancy">Heading</h1><div>MyComponent</div><p class="blink">paragraph</p></div>');
 });
