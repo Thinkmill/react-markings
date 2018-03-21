@@ -75,7 +75,7 @@ type Options = {
 */
 
 function customize(opts /*: Options */) {
-  let renderers = opts.renderers || {};
+  var renderers = opts.renderers || {};
 
   return function markings(strings /*: Array<string> */ /*::, ...values: Array<ReactNode> */) {
     var values = Array.prototype.slice.call(arguments, 1);
@@ -110,6 +110,6 @@ function customize(opts /*: Options */) {
   }
 }
 
-let md = customize({});
+var md = customize({});
 md.customize = customize;
 module.exports = md;
