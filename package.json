@@ -23,6 +23,6 @@
     "commonmark-react-renderer": "^4.3.3"
   },
   "peerDependencies": {
-    "react": "^15.6.1"
+    "react": "^15.6.0 || ^16.0.0"
   }
 }
