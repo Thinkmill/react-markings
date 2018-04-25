@@ -110,6 +110,6 @@ function customize(opts /*: Options */) {
   }
 }
 
-var md = customize({});
+var md: any = customize({});
 md.customize = customize;
 module.exports = md;
