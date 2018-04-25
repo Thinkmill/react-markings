@@ -3,24 +3,22 @@
   "version": "1.2.0",
   "description": "Markdown in components, components in markdown",
   "main": "index.js",
-  "repository": "thejameskyle/react-markings",
+  "repository": "Thinkmill/react-markings",
   "author": "James Kyle <me@thejameskyle.com>",
   "license": "MIT",
-  "files": [
-    "index.js"
-  ],
+  "files": ["index.js"],
   "scripts": {
     "test": "jest"
   },
+  "dependencies": {
+    "commonmark": "^0.27.0",
+    "commonmark-react-renderer": "^4.3.3"
+  },
   "devDependencies": {
-    "flow-bin": "^0.63.1",
+    "flow-bin": "^0.68.0",
     "jest": "^22.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
-  },
-  "dependencies": {
-    "commonmark": "^0.28.1",
-    "commonmark-react-renderer": "^4.3.3"
   },
   "peerDependencies": {
     "react": "^15.6.0 || ^16.0.0"
