@@ -72,6 +72,8 @@ type Options = {
     [key: string]: (props: Object) => ReactNode
   }
 };
+
+type Exported<T, C> = T & { customize: C };
 */
 
 function customize(opts /*: Options */) {
@@ -110,6 +112,7 @@ function customize(opts /*: Options */) {
   }
 }
 
-var md/*: any */ = customize({});
+var md = customize({});
 md.customize = customize;
+md = (md /*: Exported<typeof md, typeof customize> */);
 module.exports = md;
