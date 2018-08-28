@@ -1,3 +1,9 @@
+# Recommendation: Use [MDX](https://mdxjs.com), it's the same thing, but better
+
+(Although this library may be easier for you to integrate while MDX tools get built)
+
+---
+
 # react-markings
 
 > Markdown in components, components in markdown
